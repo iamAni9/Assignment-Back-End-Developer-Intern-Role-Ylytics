@@ -6,7 +6,7 @@ BASE_URL = "https://app.ylytic.com/ylytic/test"  # Base URL for the existing API
 
 @app.route('/search', methods=['GET'])
 def search_comments():
-    # Extract query parameters from the URL
+    # Extracting query parameters from the URL
     author = request.args.get('author')
     at = request.args.get('at')
     like = request.args.get('like')
