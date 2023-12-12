@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 import requests
 
 app = Flask(__name__)
-BASE_URL = "https://app.ylytic.com/ylytic/test"  # Your base URL for the existing API
+BASE_URL = "https://app.ylytic.com/ylytic/test"  # Base URL for the existing API
 
 @app.route('/search', methods=['GET'])
 def search_comments():
@@ -13,7 +13,7 @@ def search_comments():
     reply = request.args.get('reply')
     text = request.args.get('text')
 
-    # Construct parameters for the existing API request
+    # Constructing parameters for the existing API request
     params = {}
 
     if author:
@@ -40,8 +40,8 @@ def search_comments():
     if text:
         params['text'] = text
 
-    for i, j in params.items():
-        print(type(i), type(j))
+    # for i, j in params.items():
+    #     print(type(i), type(j))
     response = requests.get(BASE_URL, params=params)
     if response.status_code == 200:
         data = response.json()
