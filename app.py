@@ -1,8 +1,12 @@
 from flask import Flask, jsonify, request
-import requests
+import requests, json
 
 app = Flask(__name__)
 BASE_URL = "https://app.ylytic.com/ylytic/test"  # Base URL for the existing API
+
+@app.route('/')
+def notify():
+    return {"Use": "url/search"}
 
 @app.route('/search', methods=['GET'])
 def search_comments():
@@ -40,8 +44,8 @@ def search_comments():
     if text:
         params['text'] = text
 
-    # for i, j in params.items():
-    #     print(type(i), type(j))
+    for i, j in params.items():
+        print(type(i), type(j))
     response = requests.get(BASE_URL, params=params)
     if response.status_code == 200:
         data = response.json()
@@ -53,7 +57,7 @@ def search_comments():
                     filtered_comments.append(item)
             data['comments'] = filtered_comments
                     
-        return jsonify(data)
+        return jsonify(json.loads(json.dumps(data, indent=2)))
     else:
         return jsonify({'message': 'Error occurred while fetching comments'}), 500
 
